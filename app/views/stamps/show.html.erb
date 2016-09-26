@@ -1,0 +1,64 @@
+<% title "Stamp: #{@stamp.name}", false %>
+<% stylesheet "stamp" %>
+<% javascript "stamp" %>
+<% content_for :head do %>
+  <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+<% end %>
+
+<div id="<%= stamp_owner? ? "owner" : "other_user" %>">
+  <% if @stamp.user %>
+  <div id="stamps">
+    <div id="stamp_collection">
+      <% for stamp in (stamp_owner? ? current_user.stamps : @stamp.user.stamps.non_private) %>
+        <div class="stamp">
+          <% if stamp == @stamp %>
+            <%= image_tag("stamper/current.png", :size => "40x53", :alt => h(stamp.name)) %>
+          <% else %>
+            <%= link_to image_tag("stamper/#{h(stamp.color)}/small.png", :size => "40x52", :alt => h(stamp.name)), stamp, :title => h(truncate(stamp.name, :length => 20)) %>
+          <% end %>
+        </div>
+      <% end %>
+      <% if stamp_owner? %>
+        <div class="new_stamp">
+          <%= link_to "+", new_stamp_path, :title => "New Stamp" %>
+        </div>
+      <% end %>
+      <div class="clear"></div>
+    </div>
+    <h2>Stamp Collection</h2>
+  </div>
+  <% end %>
+
+  <div id="current_stamp">
+    <p id="stamper">
+      <%= link_to_if stamp_owner?, image_tag("stamper/#{h(@stamp.color)}/ready.png", :size => "87x114"), "#stamptoday" %>
+      <%= image_tag "stamper/#{h(@stamp.color)}/holding.png", :size => "81x90", :style => "display: none", :id => "stamp_cursor" %>
+    </p>
+    <div id="stamp_details">
+      <h1><%=h @stamp.name %></h1>
+      <% if stamp_owner? %>
+        <p>
+          <%= link_to "Customize", edit_stamp_path(@stamp) %> |
+          <%= link_to "Delete", @stamp, :method => :delete, :confirm => "Are you sure you want to delete this stamp? This operation cannot be undone." %>
+        </p>
+      <% else %>
+        <p>
+          Stamp by <%=h @stamp.user.display_name if @stamp.user %>
+          <% if logged_in? %>
+            | <%= link_to "Watch this stamp", favorites_url(:stamp_id => @stamp.id), :method => :post %>
+          <% end %>
+        </p>
+      <% end %>
+      <div id="score">
+        <%= render :partial => "score", :locals => { :stamp => @stamp } %>
+      </div>
+      <% if stamp_owner? && @stamp.score.zero? %>
+        <%= image_tag "instructions/instruction1.gif", :size => "135x59", :id => "instructions" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="calendar">
+    <%= render 'calendar' %>
+  </div>
+</div>

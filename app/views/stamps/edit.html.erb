@@ -1,0 +1,38 @@
+<% title "Customize Stamp" %>
+<% stylesheet "generic", "edit_stamp" %>
+<% javascript "edit_stamp" %>
+<% content_for :head do %>
+  <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+<% end %>
+
+<%= form_for @stamp do |f| %>
+  <%= f.error_messages %>
+  <p><%= f.text_field :name %></p>
+  <p><%= f.check_box :private %> <%= f.label :private, "Keep this stamp private" %></p>
+  
+  <div id="colors">
+    <% for color in STAMP_COLORS %>
+      <div class="color">
+        <%= label_tag "stamp_color_#{color}", image_tag("stamper/#{color}/ready.png", :size => "87x114", :alt => color) %>
+        <div class="radio_button"><%= f.radio_button :color, color %></div>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+  </div>
+  
+  <div id="stamp_images">
+    <% for stamp_image in current_user.available_stamp_images %>
+      <div class="stamp_image" id="stamp_image_<%= stamp_image.id %>">
+        <%= label_tag "stamp_stamp_image_id_#{stamp_image.id}", image_tag(stamp_image.photo.url(@stamp.color).sub(/[^\.]+$/, "png"), :size => "70x70") %>
+        <div class="radio_button"><%= f.radio_button :stamp_image_id, stamp_image.id %></div>
+        <% if stamp_image.user_id == current_user.id %>
+          <div class="delete"><%= link_to "delete", stamp_image, :method => :delete, :confirm => "Are you sure?" %></div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+  </div>
+  <p><strong>Or <%= link_to "add your own stamp", new_stamp_image_path, :id => "new_stamp_image_link" %></strong></p>
+  
+  <p class="buttons"><%= f.submit "Submit" %> or <%= link_to "cancel", @stamp %></p>
+<% end %>

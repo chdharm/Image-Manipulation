@@ -1,0 +1,136 @@
+#header img {
+  display: none;
+}
+
+#navigation {
+  text-align: center;
+  position: static;
+  display: block;
+}
+
+#navigation .message {
+  display: inline;
+  padding-right: 5px;
+}
+
+#navigation .links {
+  display: inline;
+}
+
+#logo {
+  margin: 20px 0;
+  margin-bottom: 50px;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+form {
+  margin: 0;
+  padding: 0;
+}
+
+form #stamp_name {
+  font-size: 20px;
+  width: 330px;
+}
+
+#container {
+  width: 680px;
+  max-width: 680px;
+}
+
+#side {
+  float: right;
+  padding-top: 10px;
+}
+
+#recent_stamps {
+  background-color: #EEE;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border: solid 2px #CCC;
+  margin-top: 23px;
+  width: 185px;
+}
+
+#recent_stamps h4 {
+  font-size: 15px;
+  text-align: center;
+  margin: 0;
+  padding-top: 4px;
+  padding-bottom: 7px;
+  color: #999;
+  font-weight: normal;
+  letter-spacing: 0.1em;
+}
+
+#recent_stamps .stamp {
+  padding: 3px 5px;
+  font-size: 12px;
+  border-top: solid 1px #BBB;
+}
+
+#recent_stamps .stamper {
+  float: left;
+  padding-left: 5px;
+  padding-top: 3px;
+}
+
+#recent_stamps .stamp_details {
+  margin-left: 35px;
+  padding-top: 3px;
+}
+
+#recent_stamps .score {
+  font-size: 10px;
+  color: #777;
+}
+
+#main {
+  width: 480px;
+  max-width: 480px;
+}
+
+#suggestions {
+  margin-top: 20px;
+  margin-right: 40px;
+  background-color: #EEE;
+  border: solid 3px #CCC;
+  padding: 0 20px;
+  font-size: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+}
+
+#suggestions p {
+  margin-top: 8px;
+}
+
+#suggestions h3 {
+  font-size: 22px;
+  color: #AAA;
+  font-weight: normal;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+#suggestions ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#suggestions li {
+  margin: 0;
+  padding: 4px 0;
+}
+
+#suggestions li, #suggestions li a, #suggestions li a:hover {
+  color: #444;
+  text-decoration: none;
+}
